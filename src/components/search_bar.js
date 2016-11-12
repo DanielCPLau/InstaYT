@@ -1,25 +1,35 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { setVideo, onSearchTermChange } from '../actions/index';
 
 class SearchBar extends Component {
-	constructor(props) {
-		super(props);
 
-		this.state = {term: ''};
+	onInputChange(term) {
+		this.props.setVideo(term);
+		this.props.onSearchTermChange(term);
 	}
+	
 	render() {
 		return (
 			<div className="search-bar">
 				<input 
-					value={this.state.term}
+					value={this.props.termValue}
 				  onChange={(event) => this.onInputChange(event.target.value)} />
 			</div>
 		)
 	}
 
-	onInputChange(term) {
-		this.setState({term});
-		this.props.onSearchTermChange(term);
+}
+
+function mapStateToProps(state) {
+	return {
+		termValue: state.term.term
 	}
 }
 
-export default SearchBar;
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({ setVideo, onSearchTermChange }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(SearchBar);
