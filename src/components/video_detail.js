@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class VideoDetail extends Component {
+
 	render() {
+
 		if (!this.props.video) {
 			return <div> Loading... </div>;
 		}
 
 		const videoId = this.props.video.id.videoId;
-		const url = `https://www.youtube.com/embed/${videoId}`;
+		const url = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
 
 		return (
-			<div className="video-detail col-md-8">
+			<div className="video-detail">
 				<div className="embed-responsive embed-responsive-4by3">
 					<iframe className="embed-responsive-item" src={url}></iframe>
 				</div>

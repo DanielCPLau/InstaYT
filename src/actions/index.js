@@ -11,16 +11,22 @@ export function setVideo(term) {
 }
 
 export function onVideoSelect(video) {
-	console.log("onVideoSelect called");
-	return {
-		type: 'SELECT_VIDEO',
-		payload: video
+
+	return function (dispatch) {
+		dispatch(requestVideos(video))
+
+		return fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&' + key + '&type=video&maxResults=16&relatedToVideoId=' + video.id.videoId)
+		.then(response => response.json())
+		.then(json =>
+
+			dispatch(receiveVideos(video, json))
+		)
 	}
 }
 
 //async thunk call
 export function fetchVideos(term) {
-	console.log("FETCHING VIDS");
+
 	return function (dispatch) {
 		dispatch(requestVideos(term))
 
@@ -33,10 +39,10 @@ export function fetchVideos(term) {
 	}
 }
 
-export function requestVideos(term) {
+export function requestVideos(video) {
   return {
     type: 'REQUEST_VIDEOS',
-    term
+    payload: video
   }
 }
 
@@ -48,6 +54,12 @@ export function receiveVideos(term, json) {
   }
 }
 
-
+export function receiveRelatedVideos(term, json) {
+  return {
+    type: 'RECEIVE_RELATED_VIDEOS',
+    term,
+    videos: json.items,
+  }
+}
 
 

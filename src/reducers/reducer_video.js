@@ -12,7 +12,7 @@ export default function(state = initialState, action) {
 
 		case 'REQUEST_VIDEOS':
 			return {...state, 
-				isFetching: true }
+				selectedVideo: action.payload }
 
 		case 'RECEIVE_VIDEOS':
 			var fullVid = action.videos;
@@ -23,6 +23,12 @@ export default function(state = initialState, action) {
 				selectedVideo: firstVid
 			}
 
+		case 'RECEIVE_RELATED_VIDEOS':
+			var listofRelate = action.videos;
+			fullVid.shift();
+			return {...state,
+				videos: listofRelate}
+				
 		case 'SELECT_VIDEO':
 			return {...state,
 				selectedVideo: action.payload}

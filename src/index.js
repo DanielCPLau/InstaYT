@@ -11,6 +11,6 @@ let store = createStore(reducers, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App className='roomType'/>
   </Provider>
   , document.querySelector('.container'));

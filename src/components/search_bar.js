@@ -19,6 +19,8 @@ class SearchBar extends Component {
 					value={this.props.termValue}
 				  onChange={(event) => this.onInputChange(event.target.value)} 
 				  placeholder="Search for video"/>
+				<button type="button" className="btn btn-primary buttonStyle">Dark Mode</button>
+				<button type="button" className="btn btn-danger buttonStyle">Light Mode</button>
 			</div>
 		)
 	}
