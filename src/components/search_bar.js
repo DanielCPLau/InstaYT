@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import { setVideo, onSearchTermChange } from '../actions/index';
+import { setVideo, fetchVideos } from '../actions/index';
 
 class SearchBar extends Component {
-
+	componentDidMount() {
+		this.props.fetchVideos('Kurt Hugo Schneider');
+	}
 	onInputChange(term) {
 		this.props.setVideo(term);
-		this.props.onSearchTermChange(term);
+		this.props.fetchVideos(term);
 	}
 	
 	render() {
@@ -15,7 +17,8 @@ class SearchBar extends Component {
 			<div className="search-bar">
 				<input 
 					value={this.props.termValue}
-				  onChange={(event) => this.onInputChange(event.target.value)} />
+				  onChange={(event) => this.onInputChange(event.target.value)} 
+				  placeholder="Search for video"/>
 			</div>
 		)
 	}
@@ -29,7 +32,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ setVideo, onSearchTermChange }, dispatch);
+	return bindActionCreators({ setVideo, fetchVideos }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(SearchBar);

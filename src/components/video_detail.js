@@ -12,11 +12,12 @@ class VideoDetail extends Component {
 
 		return (
 			<div className="video-detail col-md-8">
-				<div className="embed-responsive embed-responsive-16by9">
+				<div className="embed-responsive embed-responsive-4by3">
 					<iframe className="embed-responsive-item" src={url}></iframe>
 				</div>
 				<div className="details">
-					<div>{this.props.video.snippet.title}</div>
+					<div className='videoTitle'>{this.props.video.snippet.title}</div>
+
 					<div>{this.props.video.snippet.description}</div>
 				</div>
 			</div>
