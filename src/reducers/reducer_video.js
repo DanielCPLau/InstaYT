@@ -1,6 +1,7 @@
 import YTSearch from 'youtube-api-search';
 
 const initialState = {
+	isFetching: false,
 	selectedVideo: null,
 	videos: []
 }
@@ -8,34 +9,23 @@ const initialState = {
 export default function(state = initialState, action) {
 	switch(action.type) {
 	//calls to youtube API to search video
-		case 'TERM_CHANGE':
-			console.log("TERM_CHANGE called" + action.payload);
-			const API_KEY = 'AIzaSyBOryAXJUTN31wmfvIWTQyt1UbN3-e-TdA';
 
-			var APIvideos = 0;
-			var APIselectedVideo = 0;
+		case 'REQUEST_VIDEOS':
+			return {...state, 
+				isFetching: true }
 
-			var loading = true;
-
-			function getVideos() {
-
-				YTSearch({key: API_KEY, term: action.payload}, videos => {
-					console.log(videos)
-					this.APIvideos = videos;
-				})
-
-				console.log("DONE")
+		case 'RECEIVE_VIDEOS':
+			var fullVid = action.videos;
+			var firstVid = fullVid[0];
+			fullVid.shift();
+			return {...state,
+				videos: fullVid,
+				selectedVideo: firstVid
 			}
 
-			getVideos();
-			console.log(APIvideos)
-
-			return {
-				...state,
-				selectedVideo: APIselectedVideo,
-				videos: APIvideos
-			};
-
+		case 'SELECT_VIDEO':
+			return {...state,
+				selectedVideo: action.payload}
 		default:
 			return state;
 	}

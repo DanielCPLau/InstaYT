@@ -25,3 +25,17 @@
 .list-group-item:hover {
 	background-color: #eee;
 }
+
+.videoTitle {
+	font-weight: bold;
+}
+
+.theater {
+	-webkit-transform: scale(1.5,1.5);
+  position: fixed;
+  left: 85px;
+  top: 150px;
+  border-right: 100% solid black;
+  border-left: 100% solid black;
+  margin: auto;
+}
