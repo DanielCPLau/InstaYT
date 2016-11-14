@@ -1,7 +1,6 @@
 import YTSearch from 'youtube-api-search';
 
 const initialState = {
-	isFetching: false,
 	selectedVideo: null,
 	videos: []
 }
@@ -25,13 +24,10 @@ export default function(state = initialState, action) {
 
 		case 'RECEIVE_RELATED_VIDEOS':
 			var listofRelate = action.videos;
-			fullVid.shift();
+			listofRelate.shift();
 			return {...state,
 				videos: listofRelate}
-				
-		case 'SELECT_VIDEO':
-			return {...state,
-				selectedVideo: action.payload}
+
 		default:
 			return state;
 	}

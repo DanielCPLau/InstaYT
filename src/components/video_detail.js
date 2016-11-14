@@ -5,7 +5,7 @@ class VideoDetail extends Component {
 
 	render() {
 
-		if (!this.props.video) {
+		while (!this.props.video) {
 			return <div> Loading... </div>;
 		}
 

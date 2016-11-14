@@ -2,34 +2,31 @@ import 'whatwg-fetch';
 
 var key = 'key=AIzaSyBOryAXJUTN31wmfvIWTQyt1UbN3-e-TdA';
 
+//updates text in the searchbox
 export function setVideo(term) {
-	console.log("setVideo called");
 	return {
 		type: 'SET_VIDEO',
 		payload: term
 	};
 }
 
+//when a video is selected from the list
 export function onVideoSelect(video) {
-
 	return function (dispatch) {
 		dispatch(requestVideos(video))
 
 		return fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&' + key + '&type=video&maxResults=16&relatedToVideoId=' + video.id.videoId)
 		.then(response => response.json())
 		.then(json =>
-
-			dispatch(receiveVideos(video, json))
+			dispatch(receiveRelatedVideos(video, json))
 		)
 	}
 }
 
+//when the search bar changes
 //async thunk call
 export function fetchVideos(term) {
-
 	return function (dispatch) {
-		dispatch(requestVideos(term))
-
 		return fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&' + key + '&type=video&maxResults=16&q=' + term)
 		.then(response => response.json())
 		.then(json =>
