@@ -10,11 +10,11 @@ class VideoDetail extends Component {
 		}
 
 		const videoId = this.props.video.id.videoId;
-		const url = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+		const url = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
 
 		return (
 			<div className="video-detail">
-				<div className="embed-responsive embed-responsive-4by3">
+				<div className="embed-responsive embed-responsive-16by9">
 					<iframe className="embed-responsive-item" src={url}></iframe>
 				</div>
 				<div className="details">

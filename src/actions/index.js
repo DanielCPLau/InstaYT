@@ -59,4 +59,11 @@ export function receiveRelatedVideos(term, json) {
   }
 }
 
+export function toggleRoom(type) {
+	return {
+		type: 'TOGGLE_ROOM',
+		payload: type
+	}
+}
+
 

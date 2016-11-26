@@ -42,9 +42,6 @@
 }
 
 .buttonStyle {
-	margin-left: 18px;
-}
-
-.roomType {
-	background: gray;
+	margin-top: -5px;
+	margin-left: 30px;
 }
