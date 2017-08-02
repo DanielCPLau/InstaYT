@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import { setVideo, fetchVideos } from '../actions/index';
+import { setRelatedVideo, fetchRelatedVideos } from '../actions/index';
 
-class SearchBar extends Component {
-	componentDidMount() {
-		this.props.fetchVideos('Kurt Hugo Schneider');
-	}
+class RelatedSearchBar extends Component {
 	onInputChange(term) {
-		this.props.setVideo(term);
-		this.props.fetchVideos(term);
+    this.props.setRelatedVideo(term);
+		this.props.fetchRelatedVideos(term);
 	}
 
 	render() {
@@ -18,13 +15,14 @@ class SearchBar extends Component {
         style={{
           width: '95%',
           textAlign: 'center',
-					marginBottom: '9px'
+          marginBottom: '9px'
         }}>
+
 				<input
 					style={roomType}
-					value={this.props.termValue}
+					value={this.props.relatedTermValue}
 				  onChange={(event) => this.onInputChange(event.target.value)}
-				  placeholder="Search for videos"
+				  placeholder="Or Search for other videos"
 					style={{width: '100%', margin: '0 9px 0 9px', padding: '0 4px 0 4px'}}/>
 			</div>
 		)
@@ -32,7 +30,6 @@ class SearchBar extends Component {
 }
 
 var roomType = {
-	marginTop: '-3px',
 	webkitBorderRadius: '5px',
   mozBorderRadius: '5px',
   borderRadius: '5px'
@@ -40,12 +37,12 @@ var roomType = {
 
 function mapStateToProps(state) {
 	return {
-		termValue: state.term.term,
+		relatedTermValue: state.term.relatedTermValue,
 	}
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ setVideo, fetchVideos }, dispatch);
+	return bindActionCreators({ fetchRelatedVideos, setRelatedVideo }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(RelatedSearchBar);

@@ -6,44 +6,41 @@ import { onVideoSelect } from '../actions/index';
 
 class VideoList extends Component {
 	render() {
-		if (this.props.room == "light") {
-			roomType = light;
+		var videoItems = null;
+		if (this.props.relatedVideos.length !== 0) {
+			videoItems = this.props.relatedVideos.map((video) => {
+				return (
+					<VideoListItem
+						key={video.etag}
+						video={video}
+						onVideoSelect={this.props.onVideoSelect}
+					/>
+				)
+			});
+		} else {
+			videoItems = this.props.videos.map((video) => {
+				return (
+					<VideoListItem
+						key={video.etag}
+						video={video}
+						onVideoSelect={this.props.onVideoSelect}
+					/>
+				)
+			});
 		}
-		else {
-			roomType = dark;
-		}
-		const videoItems = this.props.videos.map((video) => {
-		return (
-			<VideoListItem 
-				key={video.etag} 
-				video={video} 
-				onVideoSelect={this.props.onVideoSelect} 
-				roomStyle={roomType}/>
-		)
-		});
 
 		return (
-			<ul className="list-group">
+			<ul className="list-group" style={{width: '100%'}}>
 				{videoItems}
 			</ul>
 		)
 	}
 };
 
-var roomType;
-
-var dark = {
-	backgroundColor: 'black'
-}
-
-var light = {
-	backgroundColor: 'white'
-}
-
 function mapStateToProps(state) {
 	return {
 		videos: state.video.videos,
-		room: state.room.roomType
+		relatedVideos: state.video.relatedVideos
 	}
 }
 

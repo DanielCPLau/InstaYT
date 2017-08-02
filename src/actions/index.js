@@ -1,11 +1,18 @@
 import 'whatwg-fetch';
 
-var key = 'key=AIzaSyBOryAXJUTN31wmfvIWTQyt1UbN3-e-TdA';
+import key from '../../key';
 
 //updates text in the searchbox
 export function setVideo(term) {
 	return {
 		type: 'SET_VIDEO',
+		payload: term
+	};
+}
+
+export function setRelatedVideo(term) {
+	return {
+		type: 'SET_RELATED_VIDEO',
 		payload: term
 	};
 }
@@ -36,6 +43,17 @@ export function fetchVideos(term) {
 	}
 }
 
+export function fetchRelatedVideos(term) {
+	return function (dispatch) {
+		return fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&' + key + '&type=video&maxResults=16&q=' + term)
+		.then(response => response.json())
+		.then(json =>
+
+			dispatch(receiveRelatedVids(term, json))
+		)
+	}
+}
+
 export function requestVideos(video) {
   return {
     type: 'REQUEST_VIDEOS',
@@ -51,6 +69,14 @@ export function receiveVideos(term, json) {
   }
 }
 
+export function receiveRelatedVids(term, json) {
+	return {
+    type: 'RECEIVE_RELATED_VIDS',
+    term,
+    videos: json.items,
+  }
+}
+
 export function receiveRelatedVideos(term, json) {
   return {
     type: 'RECEIVE_RELATED_VIDEOS',
@@ -58,12 +84,3 @@ export function receiveRelatedVideos(term, json) {
     videos: json.items,
   }
 }
-
-export function toggleRoom(type) {
-	return {
-		type: 'TOGGLE_ROOM',
-		payload: type
-	}
-}
-
-

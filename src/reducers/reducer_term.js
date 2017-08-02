@@ -1,5 +1,6 @@
 const initialState = {
-	term: ''
+	term: '',
+	relatedTerm: ''
 }
 
 export default function(state = initialState, action) {
@@ -7,12 +8,16 @@ export default function(state = initialState, action) {
 	switch(action.type) {
 
 		case 'SET_VIDEO':
-			console.log("SET VIDEO CALLED" + action.payload)
-
 			return {
 				...state,
 				term: action.payload
 			};
+
+		case 'SET_RELATED_VIDEO':
+		return {
+			...state,
+			relatedTerm: action.payload
+		};
 	}
 	return state;
 }
